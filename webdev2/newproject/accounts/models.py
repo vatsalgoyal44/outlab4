@@ -34,16 +34,21 @@ def create_repository(sender, **kwargs):
     if kwargs['created']:
         str = urljoin('https://api.github.com/users/',kwargs['instance'].title+'/')
         responserepo = requests.get(urljoin(str,'repos'))
-        drepo = responserepo.json()
-        for i in range(len(drepo)):
-            rep = Repository.objects.create(owner = kwargs['instance'], repname=drepo[i]['name'], starrating = drepo[i]['stargazers_count'])
+        if responserepo.status_code == 200:
+            drepo = responserepo.json()
+            for i in range(len(drepo)):
+                rep = Repository.objects.create(owner = kwargs['instance'], repname=drepo[i]['name'], starrating = drepo[i]['stargazers_count'])
 
 def create_profile(sender, **kwargs):
     if kwargs['created']:
         response = requests.get(urljoin('https://api.github.com/users/',kwargs['instance'].username))
-        d = response.json()
-        user_profile = Profile.objects.create(user=kwargs['instance'], followernumber = int(d['followers']), title = kwargs['instance'].username)
-        user_profile.save()
+        if response.status_code != 200:
+            user_profile = Profile.objects.create(user=kwargs['instance'], title = kwargs['instance'].username)
+            user_profile.save()
+        else:
+            d = response.json()
+            user_profile = Profile.objects.create(user=kwargs['instance'], followernumber = int(d['followers']), title = kwargs['instance'].username)
+            user_profile.save()
 
         
 post_save.connect(create_profile, sender=User)
