@@ -10,19 +10,24 @@
   <div class="container">
     <br>
     <p>Built by 200020158-200260047</p>
+    {% block css%}
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
 
      <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
-            <a class="nav-link" href="/accounts/login">Login</a>
+            <a class="nav-link" href="{% url 'explore' %}" >Explore</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/accounts/signup">Signup</a>
+            <a class="nav-link" href="{% url 'profile' %}">My profile</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'logout' %}">Logout</a>
           </li>
         </ul>
       </div>
     </nav>
+    {% endblock %}
     <main>
       {% block content %}
       <h1>Base</h1>>
