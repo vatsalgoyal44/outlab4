@@ -1,14 +1,18 @@
-from django.urls import path
+from django.urls import path,re_path
+from django.conf.urls import url
 from . import views
 from django.contrib.auth.views import LoginView, LogoutView
 
 urlpatterns = [
-    path('',views.home),
-    path('login/', 
+    url(r'^$', views.explore),
+    url(r'^login/$', 
         LoginView.as_view(template_name='accounts/login.html'), 
         name="login"),
-    path('logout/', 
-        LogoutView.as_view(template_name='accounts/logout.html'), 
+    url(r'^logout/$', 
+        LogoutView.as_view(template_name='accounts/login.html'), 
         name="logout"),
-    path('signup/',views.signup,name = "signup"),
+    url(r'^signup/$',views.signup,name = "signup"),
+    url(r'^profile/$',views.profile,name = "profile"),
+    url(r'^profile/(?P<pk>\d+)/$',views.profile,name = "profile_pk"),
+    url(r'^explore/$',views.explore,name = "explore"),
 ]
