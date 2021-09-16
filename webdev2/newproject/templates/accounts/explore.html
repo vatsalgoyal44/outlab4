@@ -6,7 +6,7 @@
 <div class="container">
   <h1>Welcome to Explore Page!</h1>
   {% for user in users %}
-    <li>  <a href="{% url 'profile_pk' pk=user.pk %}" >{{ user.first_name }}</li>
+    <li>  <a href="{% url 'profile_pk' pk=user.pk %}" >{{ user.first_name }}</a></li>
   {% endfor %}
 </div>
 {% endblock %}

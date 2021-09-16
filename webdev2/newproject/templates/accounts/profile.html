@@ -7,7 +7,10 @@
   <h1>Welcome to Github Profiles!</h1>
   <h2>{{user.first_name}} {{user.last_name}} (@{{user}})
   <h6>{{ user.profile.followernumber }} followers </h6>
-  <h6>Profile last updated: {{ user.profile.date_updated }} </h6>
+  <h6>Profile last updated: {{ user.profile.date_updated }}</h6>
+  {% ifequal request.user user %}
+    <p><a href="{% url 'update' pk=user.pk %}" >update now</a></p>
+  {% endifequal %}    
   {% for repository in user.profile.repository_set.all %}
     <li>{{ repository.repname }}-{{ repository.starrating }} stars</li>
   {% endfor %}

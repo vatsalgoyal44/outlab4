@@ -15,4 +15,5 @@ urlpatterns = [
     url(r'^profile/$',views.profile,name = "profile"),
     url(r'^profile/(?P<pk>\d+)/$',views.profile,name = "profile_pk"),
     url(r'^explore/$',views.explore,name = "explore"),
+    url(r'^update/(?P<pk>\d+)/$',views.update,name = "update"),
 ]
